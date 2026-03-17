@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "Confidential Gallery",
+    "slug": "confidential-gallery-glasses",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "backgroundColor": "#000000"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "gallery.confidential.glasses",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Camera is used to scan and recognize artworks.",
+        "NSMicrophoneUsageDescription": "Microphone may be used for voice commands."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#000000"
+      },
+      "package": "gallery.confidential.glasses",
+      "permissions": ["CAMERA", "RECORD_AUDIO"]
+    },
+    "plugins": [
+      ["expo-camera", { "cameraPermission": "Allow Confidential Gallery to use the camera to scan artworks." }],
+      ["expo-av"]
+    ],
+    "scheme": "confidential-gallery"
+  }
+}
