@@ -1,0 +1,427 @@
+/* ============================================================
+   WebXR Art Preview — Design Tokens & Styles
+   High-contrast dark theme matching Meta Glasses companion app
+   ============================================================ */
+
+:root {
+  --xr-bg: #000000;
+  --xr-bg-alt: #111111;
+  --xr-surface: #222222;
+  --xr-text: #ffffff;
+  --xr-text-secondary: #888888;
+  --xr-accent: #4caf50;
+  --xr-error: #f44336;
+  --xr-gold: #c9a227;
+  --xr-cta-bg: #ffffff;
+  --xr-cta-text: #000000;
+  --xr-mat: #f5f0e8;
+  --xr-frame-thin: #1a1a1a;
+}
+
+/* ---- Full-screen container ---- */
+.container {
+  position: fixed;
+  inset: 0;
+  background: var(--xr-bg);
+  color: var(--xr-text);
+  font-family: var(--font-outfit, 'Outfit', system-ui, sans-serif);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ---- Pre-session screen ---- */
+.preSession {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  max-width: 420px;
+  text-align: center;
+}
+
+.preSession h1 {
+  font-family: var(--font-playfair, 'Playfair Display', serif);
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.preSession p {
+  color: var(--xr-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ---- Mode badge ---- */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.badgeMR {
+  background: rgba(0, 200, 150, 0.15);
+  color: #00c896;
+  border: 1px solid rgba(0, 200, 150, 0.3);
+}
+
+.badgeVR {
+  background: rgba(140, 80, 220, 0.15);
+  color: #a855f7;
+  border: 1px solid rgba(140, 80, 220, 0.3);
+}
+
+.badgeDebug {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--xr-text-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.625rem;
+  padding: 0.125rem 0.5rem;
+}
+
+/* ---- Buttons ---- */
+.btnPrimary {
+  background: var(--xr-cta-bg);
+  color: var(--xr-cta-text);
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  min-width: 200px;
+}
+
+.btnPrimary:hover {
+  opacity: 0.9;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btnSecondary {
+  background: transparent;
+  color: var(--xr-text);
+  border: 1px solid var(--xr-surface);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+
+.btnSecondary:hover {
+  border-color: var(--xr-text-secondary);
+}
+
+.btnGold {
+  background: var(--xr-gold);
+  color: #000;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* ---- DOM Overlay (in-XR UI) ---- */
+.overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  font-family: var(--font-outfit, 'Outfit', system-ui, sans-serif);
+}
+
+.overlayTop {
+  position: absolute;
+  top: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  pointer-events: auto;
+}
+
+.overlayBottom {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  pointer-events: auto;
+}
+
+.overlayHint {
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--xr-text);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  backdrop-filter: blur(8px);
+  text-align: center;
+}
+
+/* ---- Scan frame (reticle outline) ---- */
+.scanFrame {
+  width: 240px;
+  height: 240px;
+  border: 2px solid var(--xr-gold);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scanFrame::before,
+.scanFrame::after {
+  content: '';
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-color: var(--xr-gold);
+  border-style: solid;
+}
+
+.scanFrame::before {
+  top: -2px;
+  left: -2px;
+  border-width: 3px 0 0 3px;
+  border-radius: 12px 0 0 0;
+}
+
+.scanFrame::after {
+  bottom: -2px;
+  right: -2px;
+  border-width: 0 3px 3px 0;
+  border-radius: 0 0 12px 0;
+}
+
+/* ---- Recognising pulse ---- */
+.recognizing {
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* ---- Audio controls ---- */
+.audioControls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+}
+
+.audioBtn {
+  background: transparent;
+  border: 1px solid var(--xr-surface);
+  color: var(--xr-text);
+  padding: 0.375rem 0.625rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  pointer-events: auto;
+  white-space: nowrap;
+}
+
+.audioBtn:hover {
+  border-color: var(--xr-gold);
+}
+
+.audioBtnActive {
+  border-color: var(--xr-gold);
+  color: var(--xr-gold);
+}
+
+.audioProgress {
+  width: 120px;
+  height: 3px;
+  background: var(--xr-surface);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.audioProgressFill {
+  height: 100%;
+  background: var(--xr-gold);
+  transition: width 0.1s linear;
+}
+
+/* ---- Info panel (in-DOM fallback) ---- */
+.infoPanel {
+  background: rgba(17, 17, 17, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--xr-surface);
+  border-radius: 12px;
+  padding: 1.25rem;
+  max-width: 320px;
+  pointer-events: auto;
+}
+
+.infoPanel h2 {
+  font-family: var(--font-playfair, 'Playfair Display', serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+.infoPanelMeta {
+  color: var(--xr-text-secondary);
+  font-size: 0.8rem;
+  margin: 0 0 0.625rem;
+}
+
+.infoPanelDesc {
+  color: var(--xr-text);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.infoPanelGreeting {
+  color: var(--xr-gold);
+  font-size: 0.75rem;
+  font-style: italic;
+  margin: 0.5rem 0 0;
+}
+
+/* ---- VR gallery menu ---- */
+.vrMenu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  padding: 1.5rem;
+  max-width: 600px;
+  width: 100%;
+}
+
+.vrMenuTitle {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-family: var(--font-playfair, 'Playfair Display', serif);
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
+}
+
+.vrMenuItem {
+  background: var(--xr-surface);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 0.15s;
+  text-align: left;
+}
+
+.vrMenuItem:hover {
+  border-color: var(--xr-gold);
+}
+
+.vrMenuItemTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+}
+
+.vrMenuItemArtist {
+  color: var(--xr-text-secondary);
+  font-size: 0.75rem;
+  margin: 0;
+}
+
+/* ---- Unsupported state ---- */
+.unsupported {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 2rem;
+  max-width: 400px;
+  text-align: center;
+}
+
+.unsupported h1 {
+  font-family: var(--font-playfair, 'Playfair Display', serif);
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.unsupported p {
+  color: var(--xr-text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.headsetIcon {
+  width: 64px;
+  height: 64px;
+  color: var(--xr-text-secondary);
+}
+
+.linkRow {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.link {
+  color: var(--xr-gold);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* ---- Canvas (full-bleed behind overlay) ---- */
+.xrCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---- Loading spinner ---- */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--xr-surface);
+  border-top-color: var(--xr-gold);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
